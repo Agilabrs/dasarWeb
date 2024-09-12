@@ -1,0 +1,1 @@
+alert("Hello, ini adalah Prigram JS eksternal");
