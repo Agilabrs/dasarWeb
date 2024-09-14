@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Tugas tambahan</title>
+    <style>
+        /* same styles as before */
+    </style>
+</head>
+<body>
+    <header>
+
+    </header>
+
+    <form id="myForm" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="nama">Nama</label>
+            <input type="text" id="nama" name="nama">
+        </div>
+        <div class="form-group">
+            <label for="alamat">Alamat</label>
+            <textarea name="alamat" id="alamat"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="tanggal-lahir">Tanggal Lahir</label>
+            <input type="date" id="tanggal-lahir" name="tanggal-lahir">
+        </div>
+        <div class="form-group">
+            <label for="jenisKelamin">Jenis Kelamin</label>
+            <input type="radio" name="jenisKelamin" value="Laki-Laki" id="laki-laki">
+            <label for="Laki-Laki">Laki-Laki</label>
+            <input type="radio" name="jenisKelamin" value="Wanita" id="wanita">
+            <label for="Wanita">Wanita</label>
+        </div>
+        <div class="form-group">
+            <div class="input-lahir">
+                <label for="Hobby"> Hobby</label>
+                <input type="checkbox" name="Hobby" value="Berenang" id="berenang">
+                <label for="Berenang">Berenang</label>
+                <input type="checkbox" name="Hobby" value="Berlari" id="berlari">
+                <label for="Berlari">Berlari</label>
+                <input type="checkbox" name="Hobby" value="Lain-Lain" id="lain-lain">
+                <label for="Lain-Lain">Lain-Lain</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pekerjaan">Pekerjaan</label>
+            <input type="radio" name="pekerjaan" value="Swasta" id="swasta">
+            <label for="Swasta">Swasta</label>
+            <input type="radio" name="pekerjaan" value="PNS" id="pns">
+            <label for="PNS">PNS</label>
+            <input type="radio" name="pekerjaan" value="Lain-Lain" id="pekerjaan-lain">
+            <label for="Lain-Lain">Lain-Lain</label>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" name="kirim" value="kirim" id="kirim">
+            <label for="kirim">Check jika anda akan mengirimkan data ini</label>
+        </div>
+        <button type="submit">Cek!</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            var nama = document.getElementById('nama').value.trim();
+            var alamat = document.getElementById('alamat').value.trim();
+            var tanggalLahir = document.getElementById('tanggal-lahir').value;
+            var jenisKelamin = document.querySelector('input[name="jenisKelamin"]:checked');
+            var pekerjaan = document.querySelector('input[name="pekerjaan"]:checked');
+            var hobby = document.querySelectorAll('input[name="Hobby"]:checked');
+            var kirim = document.getElementById('kirim').checked;
+
+            if (!nama) {
+                alert("Nama harus diisi");
+                return false;
+            }
+
+            if (!alamat) {
+                alert("Alamat harus diisi");
+                return false;
+            }
+
+            if (!tanggalLahir) {
+                alert("Tanggal lahir harus diisi");
+                return false;
+            }
+
+            if (!jenisKelamin) {
+                alert("Jenis kelamin harus dipilih");
+                return false;
+            }
+
+            if (!pekerjaan) {
+                alert("Pekerjaan harus dipilih");
+                return false;
+            }
+
+            if (hobby.length === 0) {
+                alert("Pilih minimal satu hobby");
+                return false;
+            }
+
+            if (!kirim) {
+                alert("Anda harus mencentang checkbox untuk mengirim data");
+                return false;
+            }
+
+            alert("Data telah dikirim");
+            return true;
+        }
+    </script>
+</body>
+</html>
