@@ -21,6 +21,12 @@ $hasilOr = $a || $b;
 $hasilNotA = !$a;
 $hasilNotB = !$b;
 
+$a += $b;
+$a -= $b;
+$a *= $b;
+$a /= $b;
+$a %= $b;
+
 echo "Variabel a: {$a} <br>";
 echo "Variabel b: {$b} <br>";
 echo "Penambahan: {$hasilTambah} <br>";
@@ -41,4 +47,10 @@ echo "AND : {$hasilAnd} <br>";
 echo "OR: {$hasilOr} <br>";
 echo "NOT A: {$hasilNotA} <br>";
 echo "NOT B: {$hasilNotB} <br>";
+
+echo "A += B: {$a} <br>";
+echo "A -= B: {$a} <br>";
+echo "A *= B: {$a} <br>";
+echo "A /= B: {$a} <br>";
+echo "A %= B: {$a} <br>";
 ?>
