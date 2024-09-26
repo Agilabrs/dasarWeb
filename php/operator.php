@@ -27,6 +27,9 @@ $a *= $b;
 $a /= $b;
 $a %= $b;
 
+$hasilIdentik = $a === $b;
+$hasilTakIdentik = $a !== $b;
+
 echo "Variabel a: {$a} <br>";
 echo "Variabel b: {$b} <br>";
 echo "Penambahan: {$hasilTambah} <br>";
@@ -53,4 +56,7 @@ echo "A -= B: {$a} <br>";
 echo "A *= B: {$a} <br>";
 echo "A /= B: {$a} <br>";
 echo "A %= B: {$a} <br>";
+
+echo "Indentik: {$hasilIdentik} <br>";
+echo "Tak indentik: {$hasilTakIdentik} <br>";
 ?>
