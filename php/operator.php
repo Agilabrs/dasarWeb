@@ -59,4 +59,11 @@ echo "A %= B: {$a} <br>";
 
 echo "Indentik: {$hasilIdentik} <br>";
 echo "Tak indentik: {$hasilTakIdentik} <br>";
+
+$jumlahKursi = 45;
+$jumlahKursiTersedia = $jumlahKursi - 28;
+$persentasiJumlahKursiTersedia = intval($jumlahKursiTersedia / 45 * 100);
+
+echo "<br>";
+echo "Kursi yang masih kosong pada restoran tersebut sebanyak $persentasiJumlahKursiTersedia persen";
 ?>
