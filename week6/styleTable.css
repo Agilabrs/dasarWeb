@@ -1,0 +1,30 @@
+#klik, #tables{
+    padding: 5px;
+    text-align: center;
+    background-color: #a7dbd8;
+    border: solid 2px #e0e4cc;
+    border-radius: 5px;
+}
+#tables{
+    padding: 50px;
+    display: none;
+}
+table {
+background-color: white;
+border-collapse: collapse;
+border-spacing: 0;
+width: 100%;
+border: 1px solid black;
+}
+th, td{
+text-align: left;
+padding: 16px;
+border: 1px solid black;
+}
+
+tr:not(:first-child) {
+    background-color: white;
+}
+tr:first-child {
+    background-color: yellow;
+}
