@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dynamic Form</h1>
+        <form action="coba.php" method="POST" id="dynamicForm">
+            <div id="formContainer">
+                <!-- Form elements will be added here dynamically -->
+                <div class="form-group">
+                    <label for="input1">Input 1</label>
+                    <input type="text" name="input[]" id="input1" required>
+                </div>
+            </div>
+            <button type="button" id="addForm">Add More</button>
+            <button type="button" id="removeForm">Remove</button>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        let formCounter = 1;
+
+        // Add new form input
+        document.getElementById('addForm').addEventListener('click', function() {
+            formCounter++;
+            const formContainer = document.getElementById('formContainer');
+            const newFormGroup = document.createElement('div');
+            newFormGroup.classList.add('form-group');
+            newFormGroup.innerHTML = `
+                <label for="input${formCounter}">Input ${formCounter}</label>
+                <input type="text" name="input[]" id="input${formCounter}" required>
+            `;
+            formContainer.appendChild(newFormGroup);
+        });
+
+        // Remove last form input
+        document.getElementById('removeForm').addEventListener('click', function() {
+            if (formCounter > 1) {
+                const formContainer = document.getElementById('formContainer');
+                formContainer.removeChild(formContainer.lastElementChild);
+                formCounter--;
+            }
+        });
+    </script>
+</body>
+</html>
