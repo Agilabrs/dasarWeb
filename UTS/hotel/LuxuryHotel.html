@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Hotel - Reservasi</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#rooms">Kamar</a></li>
+            <li><a href="#reservation">Reservasi</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div>
+            <h1>Luxury Hotel</h1>
+            <p>Selamat Datang di Surga Menginap yang Menjanjikan Pengalaman Tak Terlupakan.</p><br>
+            <p>Kami tidak sekadar menyediakan tempat menginap, kami menciptakan kenangan istimewa yang akan Anda kenang selamanya.</p>
+            <p>Setiap tamu adalah VIP, dan setiap momen adalah kesempatan kami untuk melampaui ekspektasi Anda.</p>
+        </div>
+    </section>
+
+    <section id="rooms" class="rooms">
+        <h2 style="text-align: center;">Pilihan Kamar</h2>
+        <div class="room-container" id="roomContainer">
+            <!-- Rooms will be populated by JavaScript -->
+        </div>
+    </section>
+
+    <section id="reservation">
+        <form class="reservation-form" id="reservationForm" action="proses.php" method="POST">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Formulir Reservasi</h2>
+            <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Nomor Telepon</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="roomType">Tipe Kamar</label>
+                <select id="roomType" name="roomType" required>
+                    <option value="">Pilih Tipe Kamar</option>
+                    <option value="deluxe">Deluxe Room - Rp 1.000.000/malam</option>
+                    <option value="suite">Suite Room - Rp 2.000.000/malam</option>
+                    <option value="presidential">Presidential Suite - Rp 5.000.000/malam</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="checkIn">Tanggal Check-in</label>
+                <input type="date" id="checkIn" name="checkIn" required>
+            </div>
+            <div class="form-group">
+                <label for="checkOut">Tanggal Check-out</label>
+                <input type="date" id="checkOut" name="checkOut" required>
+            </div>
+            <div class="form-group">
+                <label for="notes">Catatan Tambahan</label>
+                <textarea id="notes" name="notes" rows="4"></textarea>
+            </div>
+            <button type="submit">Pesan Sekarang</button>
+            <div class="success-message" id="successMessage">
+                Reservasi berhasil! Kami akan menghubungi Anda segera.
+            </div>
+            <div class="error-message" id="errorMessage">
+                Maaf, terjadi kesalahan. Silakan coba lagi.
+            </div>
+        </form>
+    </section>
+
+    <script>
+        const rooms = [
+            {
+                name: 'Deluxe Room',
+                price: 'Rp 1.000.000/malam',
+                description: 'Kamar nyaman dengan pemandangan yang menarik',
+                image:'./assets/deluxe room.jpg'
+            },
+            {
+                name: 'Suite Room',
+                price: 'Rp 2.000.000/malam',
+                description: 'Kamar mewah dengan ruang tamu yang nyaman',
+                image: './assets/suite room.jpg'
+            },
+            {
+                name: 'Presidential Suite',
+                price: 'Rp 5.000.000/malam',
+                description: 'Kamar super mewah dengan fasilitas lengkap',
+                image: './assets/presidential room.jpg'
+            }
+        ];
+
+        $(document).ready(function() {
+            // Populate rooms
+            rooms.forEach(room => {
+                $('#roomContainer').append(`
+                    <div class="room-card">
+                        <img src="${room.image}" alt="${room.name}">
+                        <div class="room-info">
+                            <h3>${room.name}</h3>
+                            <p>${room.description}</p>
+                            <p><strong>${room.price}</strong></p>
+                        </div>
+                    </div>
+                `);
+            });
+
+            // Smooth scroll
+            $('a[href^="#"]').on('click', function(event) {
+                event.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $($(this).attr('href')).offset().top - 70
+                }, 800);
+            });
+
+            // Form handling
+            $('#reservationForm').on('submit', function(event) {
+                event.preventDefault();
+                
+                // Validate dates
+                const checkIn = new Date($('#checkIn').val());
+                const checkOut = new Date($('#checkOut').val());
+                const today = new Date();
+
+                if (checkIn < today) {
+                    $('#errorMessage').text('Tanggal check-in tidak boleh kurang dari hari ini').slideDown();
+                    return;
+                }
+
+                if (checkOut <= checkIn) {
+                    $('#errorMessage').text('Tanggal check-out harus lebih besar dari check-in').slideDown();
+                    return;
+                }
+
+                // Submit form via AJAX
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#successMessage').slideDown();
+                        $('#errorMessage').slideUp();
+                        $('#reservationForm')[0].reset();
+                        setTimeout(() => {
+                            $('#successMessage').slideUp();
+                        }, 3000);
+                    },
+                    error: function() {
+                        $('#errorMessage').text('Terjadi kesalahan. Silakan coba lagi.').slideDown();
+                        $('#successMessage').slideUp();
+                    }
+                });
+            });
+
+            // Set minimum date for check-in and check-out
+            const today = new Date().toISOString().split('T')[0];
+            $('#checkIn, #checkOut').attr('min', today);
+        });
+    </script>
+</body>
+</html>
