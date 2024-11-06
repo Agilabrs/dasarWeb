@@ -1,9 +1,9 @@
 <?php
 
-$serverName = "DESKTOP-EJS5FCV"; // Nama server SQL Server atau IP address
-$database = "Cihuy";             // Nama database
-$username = "";                  // Username SQL Server jika menggunakan SQL Server Authentication
-$password = "";                  // Password SQL Server jika menggunakan SQL Server Authentication
+$serverName = "DESKTOP-EJS5FCV"; 
+$database = "Cihuy";          
+$username = "";                  
+$password = "";                  
 
 try {
    $conn = new PDO("sqlsrv:server=$serverName;Database=$database", $username, $password);
